@@ -1,7 +1,6 @@
 import React from "react";
 import { Container, Navbar as NavBs,Nav, Button } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
-// import "CartIcon" from "../assets/cart.svg";
 
 export function Navbar() {
     return (
