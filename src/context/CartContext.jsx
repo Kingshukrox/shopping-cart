@@ -1,4 +1,4 @@
-import { createContext, useContext } from "react";
+import { createContext, useContext, useState } from "react";
 
 const CartContext=createContext({})
 
@@ -7,8 +7,64 @@ export function useCart(){
 }
 
 export function CartContextProvider({children}){
+    const [cartItems,setCartItems]=useState([]) //*it will have [{id:####,quantity:##},..]
+    
+    function getItemQuantity(id){
+        //if item.id matches(exists), return the quantity or else return 0
+        return cartItems.find(item=>item.id===id)?.quantity||0;
+    }
+
+    function increaseItemQuantity(id){
+        setCartItems(currentItems=>{    //currentItems=previous state of cartItems
+            //if we dont find item in prevstate then return prevstate and add new item {id,quant:1}
+            if(currentItems.find(item=>item.id===id)===null){
+                return [...currentItems,{id,quantity:1}]
+            }
+            //if we find items in prevstate, return array with new quantity
+            else{
+                currentItems.map(item=>{    //.map will return entire array
+                    if(item.id===id)
+                    return {...item,quantity:item.quantity+1} //returns the new quantity
+                    else return item
+                })
+            }
+        })
+    }
+
+    function decreaseItemQuantity(id){
+        setCartItems(currentItems=>{    //currentItems=previous state of cartItems
+            //if we find only 1 item (last count) in list then remove the item from list alltogether (filter out)
+            if(currentItems.find(item=>item.id===id).quantity===1){
+                return currentItems.filter(item=>item.id!==id) //.filter returns array which matches condition
+            }
+            //if we find items in prevstate, return array with new quantity
+            else{
+                currentItems.map(item=>{    //.map will return entire array
+                    if(item.id===id)
+                    return {...item,quantity:item.quantity-1} //returns the new quantity
+                    else return item
+                })
+            }
+        })
+    }
+
+    function removeFromCart(id){
+        setCartItems(currentItems=>{
+            //.filter will return array to state which does not match the id
+            //that means it will return the rest of the items to the state
+            return currentItems.filter(item=>item.id!==id)
+        })
+    }
+
     return (
-        <CartContext.Provider value={{}}>
+        <CartContext.Provider
+            value={{
+                getItemQuantity,
+                increaseItemQuantity,
+                decreaseItemQuantity,
+                removeFromCart,
+            }}
+        >
             {children}
         </CartContext.Provider>
     );
