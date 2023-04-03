@@ -4,9 +4,10 @@ import { Home } from "./pages/Home";
 import { Store } from "./pages/Store";
 import { About } from "./pages/About";
 import { Navbar } from "./components/Navbar";
+import { CartContextProvider } from "./context/CartContext";
 function App() {
     return (
-        <>
+        <CartContextProvider>
             <Navbar />
             <Container className="mb-4">
                 <Routes>
@@ -15,7 +16,8 @@ function App() {
                     <Route path="/about" element={<About />} />
                 </Routes>
             </Container>
-        </>
+        </CartContextProvider>
+
     );
 }
 

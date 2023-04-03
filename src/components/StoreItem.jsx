@@ -3,7 +3,7 @@ import { Button, Card } from "react-bootstrap";
 import { currencyFormat } from "../utilities/currencyFormat";
 
 export function StoreItem({ id, name, price, imgUrl,alt }) {
-    const quantity=1;
+    const quantity=0;
     return (
         <div>
             <article>
