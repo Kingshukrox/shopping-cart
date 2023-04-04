@@ -21,6 +21,7 @@ export function Navbar() {
                         About
                     </Nav.Link>
                 </Nav>
+                {cartQuantity?
                 <Button
                     style={{
                         width: "3rem",
@@ -52,7 +53,7 @@ export function Navbar() {
                     >
                         {cartQuantity}
                     </div>
-                </Button>
+                </Button>:null}
             </Container>
         </NavBs>
     );
