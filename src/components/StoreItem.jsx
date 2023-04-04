@@ -1,9 +1,12 @@
 import React from "react";
 import { Button, Card } from "react-bootstrap";
 import { currencyFormat } from "../utilities/currencyFormat";
+import { useCart } from "../context/CartContext";
 
 export function StoreItem({ id, name, price, imgUrl,alt }) {
-    const quantity=0;
+    const {getItemQuantity,increaseItemQuantity,decreaseItemQuantity,removeFromCart}=useCart();
+    const quantity=getItemQuantity(id);
+    // const quantity=1;
     return (
         <div>
             <article>
@@ -25,16 +28,16 @@ export function StoreItem({ id, name, price, imgUrl,alt }) {
                             </span>
                         </Card.Title>
                         <Card.Text>Some text</Card.Text>
-                        {quantity===0?(<Button variant="primary">+ Add to Cart</Button>):<div className="d-flex flex-column align-items-center" style={{gap:"1rem"}}>
+                        {quantity===0?(<Button variant="primary" onClick={()=>increaseItemQuantity(id)}>+ Add to Cart</Button>):<div className="d-flex flex-column align-items-center" style={{gap:"1rem"}}>
                                 <div className="d-flex" style={{gap:"1rem"}}>
-                                    <Button>-</Button>
+                                    <Button  onClick={()=>decreaseItemQuantity(id)}>-</Button>
                                     <div>
                                         <span className="fs-3">{quantity} </span>
                                         in cart
                                     </div>
-                                    <Button>+</Button>
+                                    <Button onClick={()=>increaseItemQuantity(id)}>+</Button>
                                 </div>
-                                <Button variant="danger">Remove</Button>
+                                <Button variant="danger" onClick={()=>removeFromCart(id)}>Remove</Button>
                             </div>}
                     </Card.Body>
                 </Card>

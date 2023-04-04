@@ -17,12 +17,12 @@ export function CartContextProvider({children}){
     function increaseItemQuantity(id){
         setCartItems(currentItems=>{    //currentItems=previous state of cartItems
             //if we dont find item in prevstate then return prevstate and add new item {id,quant:1}
-            if(currentItems.find(item=>item.id===id)===null){
+            if(currentItems.find(item=>item.id===id)==null){
                 return [...currentItems,{id,quantity:1}]
             }
             //if we find items in prevstate, return array with new quantity
             else{
-                currentItems.map(item=>{    //.map will return entire array
+                return currentItems.map(item=>{ //.map will return entire array which u need to return again to the setCartItems
                     if(item.id===id)
                     return {...item,quantity:item.quantity+1} //returns the new quantity
                     else return item
@@ -39,7 +39,7 @@ export function CartContextProvider({children}){
             }
             //if we find items in prevstate, return array with new quantity
             else{
-                currentItems.map(item=>{    //.map will return entire array
+                return currentItems.map(item=>{ //.map will return entire array which u need to return again to the setCartItems
                     if(item.id===id)
                     return {...item,quantity:item.quantity-1} //returns the new quantity
                     else return item
