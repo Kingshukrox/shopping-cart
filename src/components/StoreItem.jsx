@@ -27,7 +27,6 @@ export function StoreItem({ id, name, price, imgUrl,alt }) {
                                 {currencyFormat(price)}
                             </span>
                         </Card.Title>
-                        <Card.Text>Some text</Card.Text>
                         {quantity===0?(<Button variant="primary" onClick={()=>increaseItemQuantity(id)}>+ Add to Cart</Button>):<div className="d-flex flex-column align-items-center" style={{gap:"1rem"}}>
                                 <div className="d-flex" style={{gap:"1rem"}}>
                                     <Button  onClick={()=>decreaseItemQuantity(id)}>-</Button>

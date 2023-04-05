@@ -8,11 +8,16 @@ export function useCart(){
 
 export function CartContextProvider({children}){
     const [cartItems,setCartItems]=useState([]) //*it will have [{id:####,quantity:##},..]
+    const [cartIsOpen,setcartIsOpen]=useState(false);
 
     //.reduce(callbackFn,initialvalue) it will go over all items and find sum of quantites
     //could also use .map but map returns array .reduce returns value from callbackFn
     const cartQuantity=cartItems.reduce((quantityAccumulator,item)=>quantityAccumulator+item.quantity,0)
     
+    const openCart=()=>setcartIsOpen(true)
+    
+    const closeCart=()=>setcartIsOpen(false)
+
     function getItemQuantity(id){
         //if item.id matches(exists), return the quantity or else return 0
         return cartItems.find(item=>item.id===id)?.quantity||0;
@@ -67,8 +72,11 @@ export function CartContextProvider({children}){
                 increaseItemQuantity,
                 decreaseItemQuantity,
                 removeFromCart,
+                openCart,
+                closeCart,
                 cartItems,
-                cartQuantity
+                cartQuantity,
+                cartIsOpen
             }}
         >
             {children}

@@ -5,6 +5,7 @@ import { Store } from "./pages/Store";
 import { About } from "./pages/About";
 import { Navbar } from "./components/Navbar";
 import { CartContextProvider } from "./context/CartContext";
+import { CartSidebar } from "./components/sidebar/CartSidebar";
 function App() {
     return (
         <CartContextProvider>
@@ -16,6 +17,7 @@ function App() {
                     <Route path="/about" element={<About />} />
                 </Routes>
             </Container>
+            <CartSidebar />
         </CartContextProvider>
 
     );
