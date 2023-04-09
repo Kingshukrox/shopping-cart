@@ -3,6 +3,8 @@ import Offcanvas from "react-bootstrap/Offcanvas";
 import { useCart } from "../../context/CartContext";
 import { Stack } from "react-bootstrap";
 import {CartItem} from "./CartItem";
+import { currencyFormat } from "../../utilities/currencyFormat";
+import storeItems from "../../data/items.json"
 
 export function CartSidebar() {
 
@@ -20,6 +22,12 @@ export function CartSidebar() {
                         {cartItems.map(item=>(
                             <CartItem key={item.id} {...item} />
                         ))}
+                        <div className="ms-auto fw-bold fs-2">
+                            Total : {currencyFormat(cartItems.reduce( (totalAccumulator, currentCartItem)=>{
+                                const itemFound=storeItems.find(item=>item.id===currentCartItem.id)
+                                return totalAccumulator+ ( (itemFound?.price||0) *currentCartItem.quantity )
+                            },0 ))}
+                        </div>
                     </Stack>
                     
                 </Offcanvas.Body>
